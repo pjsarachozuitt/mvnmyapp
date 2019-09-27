@@ -1,5 +1,8 @@
 pipeline {
 	agent any
+	tools {
+        maven 'maven3.6.2'
+    }
 	stages {
 		stage('clean') {
 			steps {
@@ -17,7 +20,9 @@ pipeline {
 			}
 		}
 	}
-	tools {
-        maven 'maven3.6.2'
-    }
+	post {
+		success {
+			sh "git push heroku master"
+		}
+	}
 }
